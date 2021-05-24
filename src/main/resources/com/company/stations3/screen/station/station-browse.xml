@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://stationBrowse.caption"
+        focusComponent="stationsTable">
+    <data readOnly="true">
+        <collection id="stationsDc"
+                    class="com.company.stations3.entity.Station">
+            <fetchPlan extends="_base">
+                <property name="service" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="stationsDl">
+                <query>
+                    <![CDATA[select e from Station e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="stationsTable" spacing="true">
+        <propertyFilter
+                        caption="Станция прибытия: "
+                        property="arrival_station"
+                        operation="EQUAL"
+                        dataLoader="stationsDl">
+        </propertyFilter>
+        <propertyFilter caption="Качество вокзала: "
+                        property="quality"
+                        operation="GREATER_OR_EQUAL"
+                        dataLoader="stationsDl">
+        </propertyFilter>
+
+        <checkBoxGroup optionsEnum="com.company.stations3.entity.DisabledType"
+                       property="type"/>
+
+        <groupTable id="stationsTable"
+                    width="100%"
+                    dataContainer="stationsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="arrival_station"/>
+                <column id="departure_station"/>
+                <column id="quality"/>
+                <column id="service"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="stationsTable.create"/>
+                <button id="editBtn" action="stationsTable.edit"/>
+                <button id="removeBtn" action="stationsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

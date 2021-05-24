@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://com.company.stations3/menu.application" insertBefore="administration">
+        <item screen="User.browse" caption="msg://com.company.stations3.screen.user/UserBrowse.caption"/>
+        <item screen="Service.browse" caption="msg://com.company.stations3.screen.service/serviceBrowse.caption"/>
+        <item screen="Station.browse" caption="msg://com.company.stations3.screen.station/stationBrowse.caption"/>
+    </menu>
+
+</menu-config>

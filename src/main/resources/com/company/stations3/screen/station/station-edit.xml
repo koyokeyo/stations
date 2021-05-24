@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://stationEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="stationDc"
+                  class="com.company.stations3.entity.Station">
+            <fetchPlan extends="_base">
+                <property name="service" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="serviceDc" property="service"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="stationDc">
+            <column width="350px">
+                <textField id="arrival_stationField" property="arrival_station"/>
+                <textField id="departure_stationField" property="departure_station"/>
+                <textField id="qualityField" property="quality"/>
+            </column>
+        </form>
+        <groupBox id="serviceBox" caption="msg://com.company.stations3.entity/Station.service">
+            <table id="serviceTable" dataContainer="serviceDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="title"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="serviceTable.add"/>
+                    <button action="serviceTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

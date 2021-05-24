@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="stations3">
+        <createTable tableName="STATION_SERVICE_LINK">
+            <column name="SERVICE_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STATION_SERVICE_LINK"/>
+            </column>
+            <column name="STATION_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STATION_SERVICE_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="stations3">
+        <addForeignKeyConstraint baseColumnNames="SERVICE_ID" baseTableName="STATION_SERVICE_LINK"
+                                 constraintName="FK_STASER_ON_SERVICE" referencedColumnNames="ID"
+                                 referencedTableName="SERVICE"/>
+    </changeSet>
+    <changeSet id="3" author="stations3">
+        <addForeignKeyConstraint baseColumnNames="STATION_ID" baseTableName="STATION_SERVICE_LINK"
+                                 constraintName="FK_STASER_ON_STATION" referencedColumnNames="ID"
+                                 referencedTableName="STATION"/>
+    </changeSet>
+    <changeSet id="4" author="stations3">
+        <dropForeignKeyConstraint baseTableName="SERVICE" constraintName="FK_SERVICE_ON_STATION"/>
+    </changeSet>
+    <changeSet id="5" author="stations3">
+        <dropColumn columnName="STATION_ID" tableName="SERVICE"/>
+    </changeSet>
+</databaseChangeLog>
